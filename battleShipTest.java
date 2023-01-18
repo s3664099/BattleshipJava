@@ -41,4 +41,37 @@ public class battleShipTest {
 		assertEquals(battleShip.getSunk(),false);
 	}
 	
+	@Test 
+	public void getCoordTest() {
+		battleShip.addCoordinates(3,4,0,1,4);
+		
+		for (int x = 0;x<4;x++) {
+
+			if (x<3) {
+				assertEquals(battleShip.checkCoordinates(3, 4+x),false);
+			} else {
+				assertEquals(battleShip.checkCoordinates(3, 4+x),true);
+			}
+		}
+	}
+	
+	@Test
+	public void buildBoardTest() {
+		Board board = new Board("Fred");
+		String[][] grid = board.getGrid();
+		
+		assertEquals(grid.length,10);
+		assertEquals(grid[0].length,10);
+		assertEquals(board.getName(),"Fred");
+		
+		for (int x=0;x<10;x++) {
+			String gridRow = "";
+			for (int y=0;y<10;y++) {
+				gridRow+=grid[x][y];
+			}
+			System.out.println(gridRow);
+			assertEquals(gridRow,"..........");
+		}
+	}
+	
 }

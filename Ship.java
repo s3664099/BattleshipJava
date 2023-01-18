@@ -69,19 +69,19 @@ public class Ship {
 				foundCoord = coord;
 				found = true;
 			}
+		}
 			
-			//If found, announces that the ship has been hit.
-			//Also removes the coordinates from the set
-			if (found) {
-				this.coordinates.remove(foundCoord);
-				System.out.format("You hit the %s%n",this.name);
-			}
+		//If found, announces that the ship has been hit.
+		//Also removes the coordinates from the set
+		if (found) {
+			this.coordinates.remove(foundCoord);
+			System.out.format("You hit the %s%n",this.name);
+		}
 			
-			//Checks if size of the coordinates are 0.
-			//If so marks the ship as sunk
-			if (this.coordinates.size() == 0) {
-				sunk = true;
-			}
+		//Checks if size of the coordinates are 0.
+		//If so marks the ship as sunk
+		if (this.coordinates.size() == 0) {
+			sunk = true;
 		}
 		
 		return sunk;	

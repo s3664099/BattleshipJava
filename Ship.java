@@ -6,8 +6,7 @@ public class Ship {
 	private String letter = "";
 	private String name = "";
 	private boolean sunk = false;
-	private Coordinate coords;
-	private Set <Coordinate> hitSections;
+	private Set <Coordinate> hitSections = new HashSet <Coordinate>();
 	private Set <Coordinate> coordinates = new HashSet <Coordinate>();
 	
 	//Constructs the ship taking a length, a letter for the map, and a name
@@ -90,6 +89,11 @@ public class Ship {
 	//Sets the ship as sunk and announces
 	public void sunkShip() {
 		this.sunk = true;
-		System.out.format("You sunk the %s", this.name);
+		System.out.format("You sunk the %s%n", this.name);
+	}
+	
+	//Returns ship Coordinates - For Testing Only
+	public Set<Coordinate> getCoordinate() {
+		return this.coordinates;
 	}
 } 

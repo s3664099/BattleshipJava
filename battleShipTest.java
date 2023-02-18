@@ -74,4 +74,64 @@ public class battleShipTest {
 		}
 	}
 	
+	@Test
+	public void getRandomNumber() {
+		Board board = new Board("Fred");
+		for (int x=0;x<10;x++) {
+			System.out.println(board.getRandomNumber(0, 1));
+		}
+		
+		assertEquals(true,true);
+	}
+	
+	@Test
+	public void addShipTest() {
+		
+		Board board = new Board("Fred");
+		board.addShips();
+		String[][] grid = board.getGrid();
+
+		for (int x=0;x<10;x++) {
+			String gridRow = "";
+			for (int y=0;y<10;y++) {
+				gridRow+=grid[x][y];
+			}
+			System.out.println(x+gridRow);
+		}
+		System.out.println();
+		assertEquals(true,true);
+	}
+	
+	@Test
+	public void testSinkShip() {
+
+		System.out.println();
+		System.out.println("Test Sink Ship");
+		Board board = new Board("Fred");
+		board.addShips();
+		System.out.println();
+		String[][] grid = board.getGrid();
+		
+		for (int x=0;x<10;x++) {
+			String gridRow = "";
+			for (int y=0;y<10;y++) {
+				gridRow+=grid[x][y];
+			}
+			System.out.println(x+gridRow);
+		}
+		
+		board.testSinkShip();
+		
+		String[][] grid2 = board.getGrid();
+		
+		System.out.println();
+		for (int x=0;x<10;x++) {
+			String gridRow = "";
+			for (int y=0;y<10;y++) {
+				gridRow+=grid2[x][y];
+			}
+			System.out.println(x+gridRow);
+		}
+	}
+	
 }

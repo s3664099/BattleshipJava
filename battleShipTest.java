@@ -133,5 +133,5 @@ public class battleShipTest {
 			System.out.println(x+gridRow);
 		}
 	}
-	
+		
 }

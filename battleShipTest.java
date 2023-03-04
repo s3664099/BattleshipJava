@@ -48,16 +48,16 @@ public class battleShipTest {
 		for (int x = 0;x<4;x++) {
 
 			if (x<3) {
-				assertEquals(battleShip.checkCoordinates(3, 4+x),false);
+				assertEquals(battleShip.checkCoordinates(3, 4+x,"Fred"),false);
 			} else {
-				assertEquals(battleShip.checkCoordinates(3, 4+x),true);
+				assertEquals(battleShip.checkCoordinates(3, 4+x,"Fred"),true);
 			}
 		}
 	}
 	
 	@Test
 	public void buildBoardTest() {
-		Board board = new Board("Fred");
+		Board board = new Board("Fred",10);
 		String[][] grid = board.getGrid();
 		
 		assertEquals(grid.length,10);
@@ -76,7 +76,7 @@ public class battleShipTest {
 	
 	@Test
 	public void getRandomNumber() {
-		Board board = new Board("Fred");
+		Board board = new Board("Fred",10);
 		for (int x=0;x<10;x++) {
 			System.out.println(board.getRandomNumber(0, 1));
 		}
@@ -87,7 +87,7 @@ public class battleShipTest {
 	@Test
 	public void addShipTest() {
 		
-		Board board = new Board("Fred");
+		Board board = new Board("Fred",10);
 		board.addShips();
 		String[][] grid = board.getGrid();
 
@@ -107,7 +107,7 @@ public class battleShipTest {
 
 		System.out.println();
 		System.out.println("Test Sink Ship");
-		Board board = new Board("Fred");
+		Board board = new Board("Fred",10);
 		board.addShips();
 		System.out.println();
 		String[][] grid = board.getGrid();
@@ -120,7 +120,7 @@ public class battleShipTest {
 			System.out.println(x+gridRow);
 		}
 		
-		board.testSinkShip();
+		board.testSinkShip("Fred");
 		
 		String[][] grid2 = board.getGrid();
 		

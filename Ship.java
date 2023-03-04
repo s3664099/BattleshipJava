@@ -54,7 +54,7 @@ public class Ship {
 	}
 	
 	//Checks if the coordinates are where the ship is located
-	public boolean checkCoordinates(int xCoord,int yCoord) {
+	public boolean checkCoordinates(int xCoord,int yCoord, String playerName) {
 		
 		boolean sunk = false;
 		boolean found = false;
@@ -74,7 +74,7 @@ public class Ship {
 		//Also removes the coordinates from the set
 		if (found) {
 			this.coordinates.remove(foundCoord);
-			System.out.format("You hit the %s%n",this.name);
+			System.out.format("%s hit the %s%n",playerName,this.name);
 		}
 			
 		//Checks if size of the coordinates are 0.
@@ -87,9 +87,9 @@ public class Ship {
 	}
 	
 	//Sets the ship as sunk and announces
-	public void sunkShip() {
+	public void sunkShip(String playerName) {
 		this.sunk = true;
-		System.out.format("You sunk the %s%n", this.name);
+		System.out.format("%s sunk the %s%n",playerName, this.name);
 	}
 	
 	//Returns ship Coordinates - For Testing Only

@@ -5,13 +5,14 @@ import java.util.Set;
 
 public class Board {
 	
-	private int rows = 10;
-	private String[][] grid = new String[rows][rows];
-	private String[][] spotsHit = new String[rows][rows];	
+	private int rows;
+	private String[][] grid;
+	private String[][] spotsHit;
 	private String objectName;
 	private int gridSize = 9;
 	private Set<Coordinate> potentialShots = new HashSet<Coordinate>();
 	private Set<Coordinate> usedSpots = new HashSet<Coordinate>();
+	private Set<Integer> shipShots = new HashSet<Integer>();
 	private Set<Ship> ships = new HashSet<Ship>();
 	private int hitShip;
 	private Coordinate hit = new Coordinate(0,0);
@@ -19,12 +20,16 @@ public class Board {
 	private int movement = 0;
 	private boolean manualPlayer;
 	
-	public Board(String objectName) {
+	public Board(String objectName, int size) {
+
 		this.objectName = objectName;
+		this.rows = size;
+		this.grid = new String[rows][rows];
+		this.spotsHit = new String[rows][rows];	
 				
 		//Builds the boards, and creates a set of potential shots
-		for (int i=0;i<rows;i++) {
-			for (int j=0;j<rows;j++) {
+		for (int i=0;i<this.rows;i++) {
+			for (int j=0;j<this.rows;j++) {
 				this.grid[i][j] = ".";
 				this.spotsHit[i][j] = ".";
 				Coordinate potShot = new Coordinate(i,j);
@@ -44,6 +49,10 @@ public class Board {
 		return this.objectName;
 	}
 	
+	public int getSize() {
+		return rows;
+	}
+	
 	public void setName(String objectName) {
 		this.objectName = objectName;
 	}
@@ -61,6 +70,19 @@ public class Board {
 	//Returns a list of shots that haven't been made
 	public Set<Coordinate> getPotentialShots() {
 		return this.potentialShots;
+	}
+	
+	public void setPotentialShots(Set<Coordinate> potentialShots) {
+		this.potentialShots = potentialShots;
+	}
+	
+	//Returns a list of shots that haven't been made
+	public Set<Integer> getShipShots() {
+		return this.shipShots;
+	}
+	
+	public void setShipShots(Set<Integer> shipShots) {
+		this.shipShots = shipShots;
 	}
 	
 	//Getters and Setters for the hits
@@ -233,14 +255,14 @@ public class Board {
 		//Mark the spots on the board that have been used
 		if (angle == 1) {		
 			for (int x=-1;x<2;x++) {
-				for (int y = shipX-1;y<shipX+length+1;y++) {
+				for (int y = shipX-1;y<shipX+length;y++) {
 					usedSpots.add(new Coordinate(y,shipY+x));
 					ship.addHitSections(y, shipY+x);
 				}
 			}
 		} else {
 			for (int x=-1;x<2;x++) {
-				for (int y = shipY-1;y<shipY+length+1;y++) {
+				for (int y = shipY-1;y<shipY+length;y++) {
 					usedSpots.add(new Coordinate(shipX+x,y));
 					ship.addHitSections(shipX+x,y);
 				}
@@ -251,10 +273,10 @@ public class Board {
 	}
 	
 	//Checks which ship has been destroyed
-	public int checkWhichShip(Coordinate coOrds) {
+	public int checkWhichShip(Coordinate coOrds, String playerName) {
 		
 		//Sets the ship and the win flag
-		Ship shipToRemove = checkShipHit(coOrds);
+		Ship shipToRemove = checkShipHit(coOrds, playerName);
 		int won = 1;
 		
 		if (shipToRemove != null) {
@@ -274,14 +296,14 @@ public class Board {
 		return won;
 	}
 	
-	private Ship checkShipHit(Coordinate coOrds) {
+	private Ship checkShipHit(Coordinate coOrds, String playerName) {
 		
 		Ship shipToRemove = null;
 		
 		for (Ship ship:ships) {
-			if (ship.checkCoordinates(coOrds.getX(), coOrds.getY())) {
+			if (ship.checkCoordinates(coOrds.getX(), coOrds.getY(),playerName)) {
 				shipToRemove = ship;
-				ship.sunkShip();
+				ship.sunkShip(playerName);
 			}
 		}
 		
@@ -322,7 +344,7 @@ public class Board {
 	}
 	
 	//Method for testing purposes only
-	public void testSinkShip() {
+	public void testSinkShip(String playerName) {
 		
 		//Creates a copy of the ship set
 		Set<Ship> copyShips = new HashSet<Ship>(ships);
@@ -336,11 +358,11 @@ public class Board {
 			System.out.println();
 			System.out.println(ship.getName()+" "+ship.getLetter());
 			
-			//Goes through each of the co-oridinates and checks to see if it was hit
+			//Goes through each of the co-ordinates and checks to see if it was hit
 			for (Coordinate coord:coords) {
 				
 				System.out.println(coord.getX()+","+coord.getY());
-				checkWhichShip(coord);
+				checkWhichShip(coord, playerName);
 				
 			}
 		}

@@ -14,16 +14,27 @@ public class BattleShip {
 	private int boardSize = 10;
 	private int turns = 0;
 	private Action action = new Action();
+	private Controller controller = new Controller();
+
 	
 	public BattleShip() {
+		
+		players = controller.getNumber("Please enter the number of players (0,1,2): ",0,2);
 		
 		opponent01 = new Board("Marvin",boardSize);
 		opponent02 = new Board("Deep Thought",boardSize);
 		display = new Display();
 		
-		opponent01.addShips();
-		opponent02.addShips();
-		players = 0;
+		if (players == 0) {
+			opponent01.addShips();
+			opponent02.addShips();
+		} else if (players == 1) {
+			opponent02.addShips();
+			controller.addShips(opponent01,1, display,boardSize-1);
+		} else {
+			controller.addShips(opponent01,1, display,boardSize-1);
+			controller.addShips(opponent02,2, display,boardSize-1);
+		}
 		
 		result = 1;
 		goFirst = opponent01.getRandomNumber(0,1);

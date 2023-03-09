@@ -41,7 +41,7 @@ public class Display {
 	}
 	
 	//Displays the grid for a single user
-	private void displayGrid(int rows, String[][] user) {
+	public void displayGrid(int rows, String[][] user) {
 		
 		String lines = "";
 		String spaces = "             ";

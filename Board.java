@@ -195,7 +195,7 @@ public class Board {
 	}
 	
 	//Builds a list of potential places the ship can be placed
-	private Set<Coordinate> selectPlaces(int left,int down,Set<Coordinate> potentialPlace, int length, int angle) {		
+	public Set<Coordinate> selectPlaces(int left,int down,Set<Coordinate> potentialPlace, int length, int angle) {		
 		
 		left = this.gridSize - left;
 		down = this.gridSize - down; 
@@ -238,7 +238,7 @@ public class Board {
 	}
 	
 	//Places the ship on the board
-	private String[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, String code, int angle) {
+	public String[][] placeShip(Ship ship, int shipX, int shipY, int posX, int posY, int length, String code, int angle) {
 		
 		int placeShipX = shipX;
 		int placeShipY = shipY;

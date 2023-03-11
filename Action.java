@@ -234,17 +234,6 @@ public class Action {
 				}
 			}
 		}
-				
 		return shipShots;
-		
 	}
 }
-/*
- * 
- * #Determines the move that the attacker is going to make
-def fire(defender,attacker):
-
-
-
-
- */

@@ -82,6 +82,11 @@ public class BattleShip {
 			result = turn(firstShot,secondShot);
 			
 			if (result !=3) {
+				
+				if (players == 2) {
+					display.displayGrids(boardSize,firstShot.getGrid(),secondShot.getSpotsHit());
+				}
+				
 				result = turn(secondShot,firstShot);
 			}
 			
@@ -89,27 +94,42 @@ public class BattleShip {
 			
 			if (result == 3) {
 				System.out.printf("Game over in %s turns%n",turns);
-			}
-			
+			}			
 		}
-
 	}
 	
 	private void showGrid(int boardSize, Board firstShot, Board secondShot, int players) {
 	
-		display.displayGrids(boardSize,opponent01.getGrid(),opponent02.getGrid());
-
+		//Sees how many players and displays the appropriate boards
+		if (players == 0) {
+			display.displayGrids(boardSize,opponent01.getGrid(),opponent02.getGrid());	
+		} else if (players == 1) {
+			
+			if (firstShot.getManualPlayer()) {
+				display.displayGrids(boardSize,firstShot.getGrid(),secondShot.getSpotsHit());
+			} else {
+				display.displayGrids(boardSize,firstShot.getSpotsHit(),secondShot.getGrid());
+			}
+		} else {
+			display.displayGrids(boardSize,firstShot.getSpotsHit(),secondShot.getGrid());
+		}
+		
 	}
-	
+		
 	private int turn(Board defender, Board attacker) {
 		
 		result = 0;
 		
 		if (!skipTurn) {
 			System.out.printf("%s's Shot%n",attacker.getName());
+			
+			//Checks whether a manual player or not, and if not calls the algorith
+			if (attacker.getManualPlayer()) {
+				result = controller.fireShot(defender,attacker,boardSize);
+			} else {
+				result = action.fire(defender,attacker);
+			}
 		}
-		
-		result = action.fire(defender,attacker);
 		
 		skipTurn = false;
 		
@@ -124,6 +144,5 @@ public class BattleShip {
 		}
 		
 		return result;
-		
 	}
 }
